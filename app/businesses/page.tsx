@@ -17,7 +17,7 @@ function BusinessListingContent() {
   const [minRating, setMinRating] = useState(0)
   const [showFilters, setShowFilters] = useState(false)
 
-  const cities = [...new Set(businesses.map((b) => b.city))].sort()
+  const cities = Array.from(new Set(businesses.map((b) => b.city))).sort()
 
   useEffect(() => {
     const categoryParam = searchParams.get('category')
