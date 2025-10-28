@@ -1,0 +1,51 @@
+[
+  {
+    "id": "auto",
+    "name": "Auto Services",
+    "icon": "Car",
+    "description": "Mechanics, car wash, repairs",
+    "color": "from-blue-500 to-cyan-500",
+    "count": 234
+  },
+  {
+    "id": "beauty",
+    "name": "Beauty & Wellness",
+    "icon": "Sparkles",
+    "description": "Salons, spas, barbers",
+    "color": "from-pink-500 to-rose-500",
+    "count": 456
+  },
+  {
+    "id": "tech",
+    "name": "Tech & Services",
+    "icon": "Laptop",
+    "description": "IT support, repairs, software",
+    "color": "from-purple-500 to-indigo-500",
+    "count": 189
+  },
+  {
+    "id": "food",
+    "name": "Food & Catering",
+    "icon": "UtensilsCrossed",
+    "description": "Restaurants, caterers, chefs",
+    "color": "from-orange-500 to-amber-500",
+    "count": 567
+  },
+  {
+    "id": "health",
+    "name": "Health & Medical",
+    "icon": "Heart",
+    "description": "Clinics, pharmacies, wellness",
+    "color": "from-green-500 to-emerald-500",
+    "count": 312
+  },
+  {
+    "id": "home",
+    "name": "Home Services",
+    "icon": "Home",
+    "description": "Plumbing, cleaning, repairs",
+    "color": "from-teal-500 to-cyan-500",
+    "count": 278
+  }
+]
+
