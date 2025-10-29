@@ -10,10 +10,12 @@ import businesses from '@/data/businesses.json'
 import categories from '@/data/categories.json'
 
 export default function Home() {
-  const verifiedBusinesses = businesses.filter((b) => b.recentlyVerified).slice(0, 4)
+  // Show fewer items on mobile for faster loading
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const verifiedBusinesses = businesses.filter((b) => b.recentlyVerified).slice(0, isMobile ? 2 : 4)
   const topBusinesses = businesses
     .sort((a, b) => (b.rating * b.reviewCount) - (a.rating * a.reviewCount))
-    .slice(0, 6)
+    .slice(0, isMobile ? 3 : 6)
 
   const features = [
     {
@@ -40,32 +42,10 @@ export default function Home() {
     <div className="relative">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Animated Background Elements */}
+        {/* Simplified Background for Mobile */}
         <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 90, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-primary-600/20 to-accent-purple/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              scale: [1.2, 1, 1.2],
-              rotate: [90, 0, 90],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-accent-neon/20 to-primary-600/20 rounded-full blur-3xl"
-          />
+          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-primary-600/20 to-accent-purple/20 rounded-full blur-3xl" />
+          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-accent-neon/20 to-primary-600/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -11,6 +11,13 @@ export const metadata: Metadata = {
   title: 'Lyfestyle - Discover Trusted Businesses Near You',
   description: 'A Nigerian-based business discovery and verification platform. Find verified mechanics, salons, tech experts, caterers, and more.',
   keywords: 'business directory, Nigeria, verified businesses, local services',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  themeColor: '#4F46E5',
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({

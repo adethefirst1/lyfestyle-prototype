@@ -12,6 +12,22 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Reduce animations on low-end devices */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    * {
+      animation-duration: 0.3s !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -55,19 +71,25 @@
 
   .animated-bg {
     background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
-    background-size: 200% 200%;
-    animation: gradient 15s ease infinite;
   }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
+  /* Only animate on larger screens */
+  @media (min-width: 1024px) {
+    .animated-bg {
+      background-size: 200% 200%;
+      animation: gradient 15s ease infinite;
     }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
   }
 }

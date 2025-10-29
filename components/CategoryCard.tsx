@@ -26,9 +26,8 @@ export default function CategoryCard({ category, index = 0 }: CategoryCardProps)
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ scale: 1.05 }}
-      className="group"
+      transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
+      className="group hover:scale-105 transition-transform duration-300"
     >
       <Link href={`/businesses?category=${category.id}`}>
         <div className="glass rounded-2xl p-6 hover:glass-strong transition-all duration-300 neon-glow-hover relative overflow-hidden">

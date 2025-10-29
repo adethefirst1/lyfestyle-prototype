@@ -28,9 +28,8 @@ export default function BusinessCard({ business, index = 0 }: BusinessCardProps)
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8 }}
-      className="group relative"
+      transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
+      className="group relative hover:-translate-y-2 transition-transform duration-300"
     >
       <Link href={`/business/${business.id}`}>
         <div className="glass rounded-2xl overflow-hidden hover:glass-strong transition-all duration-300 neon-glow-hover">
