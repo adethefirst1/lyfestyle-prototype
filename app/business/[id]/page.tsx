@@ -39,7 +39,7 @@ function BusinessProfile({ businessId }: { businessId: string }) {
           <h1 className="text-4xl font-bold text-white mb-4">Business Not Found</h1>
           <button
             onClick={() => router.push('/businesses')}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-accent-purple text-white font-semibold"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-blue to-primary-500 text-white font-semibold"
           >
             Back to Businesses
           </button>
@@ -75,7 +75,7 @@ function BusinessProfile({ businessId }: { businessId: string }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative h-80 bg-gradient-to-br from-primary-900 to-accent-purple/50 overflow-hidden"
+        className="relative h-80 bg-gradient-to-br from-primary-900 to-brand-blue/50 overflow-hidden"
       >
         <img
           src={business.banner}
@@ -210,7 +210,7 @@ function BusinessProfile({ businessId }: { businessId: string }) {
                 <h2 className="text-2xl font-bold text-white">Reviews</h2>
                 <button
                   onClick={() => setShowReviewForm(!showReviewForm)}
-                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary-600 to-accent-purple text-white font-semibold hover:shadow-lg transition-all"
+                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-brand-blue to-primary-500 text-white font-semibold hover:shadow-lg transition-all"
                 >
                   {showReviewForm ? 'Cancel' : 'Write a Review'}
                 </button>
@@ -257,7 +257,7 @@ function BusinessProfile({ businessId }: { businessId: string }) {
 
                   <button
                     type="submit"
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-accent-purple text-white font-semibold hover:shadow-lg transition-all"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-blue to-primary-500 text-white font-semibold hover:shadow-lg transition-all"
                   >
                     Submit Review
                   </button>
@@ -319,7 +319,7 @@ function BusinessProfile({ businessId }: { businessId: string }) {
               </div>
 
               <div className="space-y-3">
-                <button className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-accent-purple text-white font-semibold hover:shadow-lg transition-all flex items-center justify-center space-x-2">
+                <button className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-brand-blue to-primary-500 text-white font-semibold hover:shadow-lg transition-all flex items-center justify-center space-x-2">
                   <Phone className="w-5 h-5" />
                   <span>Call Now</span>
                 </button>

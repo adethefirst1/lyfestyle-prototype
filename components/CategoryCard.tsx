@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import * as Icons from 'lucide-react'
+import Image from 'next/image'
+import { memo } from 'react'
 
 interface Category {
   id: string
@@ -15,64 +15,45 @@ interface Category {
 
 interface CategoryCardProps {
   category: Category
-  index?: number
 }
 
-export default function CategoryCard({ category, index = 0 }: CategoryCardProps) {
-  // @ts-ignore - Dynamic icon loading
-  const Icon = Icons[category.icon] || Icons.Briefcase
+// High-quality lifestyle images for categories - no generic icons
+const categoryImages: Record<string, string> = {
+  auto: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=400&fit=crop',
+  beauty: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=400&fit=crop',
+  tech: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400&h=400&fit=crop',
+  food: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&h=400&fit=crop',
+  health: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop',
+  home: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&h=400&fit=crop',
+  fashion: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=400&fit=crop',
+}
+
+function CategoryCard({ category }: CategoryCardProps) {
+  const imageUrl = categoryImages[category.id] || 'https://images.unsplash.com/photo-1552568031-326ec03fe763?w=400&h=400&fit=crop'
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
-      className="group hover:scale-105 transition-transform duration-300"
-    >
-      <Link href={`/businesses?category=${category.id}`}>
-        <div className="glass rounded-2xl p-6 hover:glass-strong transition-all duration-300 neon-glow-hover relative overflow-hidden">
-          {/* Background Gradient */}
-          <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-          
-          <div className="relative z-10">
-            {/* Icon */}
-            <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.6 }}
-              className={`w-16 h-16 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-4`}
-            >
-              <Icon className="w-8 h-8 text-white" />
-            </motion.div>
-
-            {/* Content */}
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-gradient transition-all">
-              {category.name}
-            </h3>
-            
-            <p className="text-slate-400 text-sm mb-4">
-              {category.description}
-            </p>
-
-            {/* Count Badge */}
-            <div className="flex items-center justify-between">
-              <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
-                <span className="text-primary-300 text-sm font-semibold">
-                  {category.count}+ businesses
-                </span>
-              </div>
-              
-              <motion.div
-                initial={{ x: -10, opacity: 0 }}
-                whileHover={{ x: 0, opacity: 1 }}
-                className="text-primary-400"
-              >
-                <Icons.ArrowRight className="w-5 h-5" />
-              </motion.div>
-            </div>
-          </div>
+    <Link href={`/businesses?category=${category.id}`} className="flex-shrink-0 group">
+      <div className="flex flex-col items-center">
+        {/* Circular Lifestyle Image - No borders, no background casing */}
+        <div className="w-32 h-32 rounded-full overflow-hidden mb-3 group-hover:scale-105 transition-transform duration-300">
+          <Image
+            src={imageUrl}
+            alt={category.name}
+            width={128}
+            height={128}
+            className="w-full h-full object-cover"
+            unoptimized
+          />
         </div>
-      </Link>
-    </motion.div>
+        
+        {/* Caption - Clean, minimal */}
+        <p className="text-xs text-center text-slate-900 font-medium">
+          {category.name}
+        </p>
+      </div>
+    </Link>
   )
 }
+
+export default memo(CategoryCard)
 

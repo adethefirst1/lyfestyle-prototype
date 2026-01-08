@@ -25,7 +25,7 @@ export default function OptimizedImage({
 
   if (error) {
     return (
-      <div className={`${className} bg-gradient-to-br from-primary-900/50 to-accent-purple/50 flex items-center justify-center`}>
+      <div className={`${className} bg-gradient-to-br from-primary-900/50 to-brand-blue/50 flex items-center justify-center`}>
         <div className="text-slate-400 text-center text-sm">Image unavailable</div>
       </div>
     )

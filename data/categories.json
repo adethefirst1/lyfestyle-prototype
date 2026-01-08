@@ -46,6 +46,14 @@
     "description": "Plumbing, cleaning, repairs",
     "color": "from-teal-500 to-cyan-500",
     "count": 278
+  },
+  {
+    "id": "fashion",
+    "name": "Fashion & Clothing",
+    "icon": "Shirt",
+    "description": "Tailors, boutiques, fashion designers",
+    "color": "from-rose-500 to-pink-500",
+    "count": 423
   }
 ]
 

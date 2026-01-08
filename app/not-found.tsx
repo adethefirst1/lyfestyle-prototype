@@ -78,7 +78,7 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="flex items-center space-x-2 px-8 py-4 rounded-xl bg-gradient-to-r from-primary-600 to-accent-purple text-white font-semibold hover:shadow-lg hover:shadow-primary-500/50 transition-all neon-glow-hover"
+            className="flex items-center space-x-2 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-blue to-primary-500 text-white font-semibold hover:shadow-lg hover:shadow-primary-500/50 transition-all neon-glow-hover"
           >
             <Home className="w-5 h-5" />
             <span>Return Home</span>

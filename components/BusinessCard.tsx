@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { MapPin, Star, CheckCircle, Eye, Phone, Mail } from 'lucide-react'
+import Image from 'next/image'
+import { MapPin, Star, CheckCircle, Eye } from 'lucide-react'
+import { memo } from 'react'
 
 interface Business {
   id: string
@@ -20,49 +21,39 @@ interface Business {
 
 interface BusinessCardProps {
   business: Business
-  index?: number
 }
 
-export default function BusinessCard({ business, index = 0 }: BusinessCardProps) {
+function BusinessCard({ business }: BusinessCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
-      className="group relative hover:-translate-y-2 transition-transform duration-300"
-    >
+    <div className="group relative">
       <Link href={`/business/${business.id}`}>
-        <div className="glass rounded-2xl overflow-hidden hover:glass-strong transition-all duration-300 neon-glow-hover">
+        <div className="glass rounded-2xl overflow-hidden hover:glass-strong transition-all">
           {/* Featured Badge */}
           {business.featured && (
             <div className="absolute top-4 right-4 z-10">
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-semibold"
-              >
+              <div className="px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-semibold">
                 Featured
-              </motion.div>
+              </div>
             </div>
           )}
 
           {/* Logo Section */}
-          <div className="relative h-48 bg-gradient-to-br from-primary-900/50 to-accent-purple/50 flex items-center justify-center overflow-hidden">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-              className="relative z-10"
-            >
-              <img
+          <div className="relative h-48 bg-gradient-to-br from-primary-100 to-blue-100 flex items-center justify-center overflow-hidden">
+            <div className="relative z-10">
+              <Image
                 src={business.logo}
                 alt={business.name}
-                className="w-24 h-24 rounded-xl object-cover border-4 border-white/20"
+                width={96}
+                height={96}
+                className="w-24 h-24 rounded-xl object-cover border-4 border-white"
+                loading="lazy"
+                quality={75}
               />
-            </motion.div>
+            </div>
             
             {/* Verified Badge */}
             {business.verified && (
-              <div className="absolute top-4 left-4 flex items-center space-x-1 bg-green-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
+              <div className="absolute top-4 left-4 flex items-center space-x-1 bg-green-600 px-2 py-1 rounded-full">
                 <CheckCircle className="w-4 h-4 text-white" />
                 <span className="text-xs font-semibold text-white">Verified</span>
               </div>
@@ -71,17 +62,17 @@ export default function BusinessCard({ business, index = 0 }: BusinessCardProps)
 
           {/* Content */}
           <div className="p-6">
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-gradient transition-all">
+            <h3 className="text-xl font-bold text-slate-900 mb-2">
               {business.name}
             </h3>
             
-            <p className="text-slate-400 text-sm mb-4 line-clamp-2">
+            <p className="text-slate-600 text-sm mb-4 line-clamp-2">
               {business.description}
             </p>
 
             {/* Location */}
-            <div className="flex items-center space-x-2 text-slate-400 text-sm mb-4">
-              <MapPin className="w-4 h-4 text-primary-400" />
+            <div className="flex items-center space-x-2 text-slate-600 text-sm mb-4">
+              <MapPin className="w-4 h-4 text-primary-600" />
               <span>{business.location}</span>
             </div>
 
@@ -90,35 +81,26 @@ export default function BusinessCard({ business, index = 0 }: BusinessCardProps)
               {/* Rating */}
               <div className="flex items-center space-x-2">
                 <div className="flex items-center space-x-1">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  <span className="text-white font-semibold">{business.rating}</span>
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                  <span className="text-slate-900 font-semibold">{business.rating}</span>
                 </div>
-                <span className="text-slate-400 text-sm">({business.reviewCount})</span>
+                <span className="text-slate-600 text-sm">({business.reviewCount})</span>
               </div>
 
               {/* Views */}
               {business.views && (
-                <div className="flex items-center space-x-1 text-slate-400 text-sm">
+                <div className="flex items-center space-x-1 text-slate-600 text-sm">
                   <Eye className="w-4 h-4" />
                   <span>{business.views.toLocaleString()}</span>
                 </div>
               )}
             </div>
-
-            {/* CTA Button */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              className="mt-4 pt-4 border-t border-white/10"
-            >
-              <div className="flex items-center justify-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-primary-600/20 to-accent-purple/20 border border-primary-500/50 text-primary-300 font-semibold text-sm hover:from-primary-600 hover:to-accent-purple hover:text-white transition-all">
-                <span>View Profile</span>
-              </div>
-            </motion.div>
           </div>
         </div>
       </Link>
-    </motion.div>
+    </div>
   )
 }
+
+export default memo(BusinessCard)
 

@@ -43,7 +43,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              About <span className="text-gradient">Lyfestyle</span>
+              About <span className="text-gradient">Lyfestylz</span>
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed">
               Connecting Nigerians with trusted businesses across all categories.
@@ -64,7 +64,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="glass-strong rounded-2xl p-8"
           >
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-600 to-accent-purple flex items-center justify-center mb-6">
+            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-blue to-primary-500 flex items-center justify-center mb-6">
               <Target className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-white mb-4">Our Mission</h2>
@@ -82,7 +82,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="glass-strong rounded-2xl p-8"
           >
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent-purple to-accent-neon flex items-center justify-center mb-6">
+            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-blue to-brand-orange flex items-center justify-center mb-6">
               <Eye className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-white mb-4">Our Vision</h2>
@@ -176,7 +176,7 @@ export default function AboutPage() {
               Built with care for Nigeria
             </h2>
             <p className="text-slate-400 mb-2">
-              Lyfestyle is proudly developed and maintained by passionate technologists
+              Lyfestylz is proudly developed and maintained by passionate technologists
               committed to transforming how Nigerians discover and trust local businesses.
             </p>
             <p className="text-slate-500 text-sm">

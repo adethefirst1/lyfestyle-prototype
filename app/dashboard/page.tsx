@@ -1,157 +1,238 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Eye, Star, TrendingUp, Users, Edit, FileText, Settings, CheckCircle } from 'lucide-react'
+import { useState } from 'react'
+import { CheckCircle, Clock, X, Upload, XCircle } from 'lucide-react'
+import Image from 'next/image'
 
-export default function DashboardPage() {
-  const stats = [
-    { label: 'Total Views', value: '1,245', icon: Eye, color: 'from-blue-500 to-cyan-500' },
-    { label: 'Average Rating', value: '4.8', icon: Star, color: 'from-amber-500 to-orange-500' },
-    { label: 'Reviews', value: '127', icon: Users, color: 'from-green-500 to-emerald-500' },
-    { label: 'Growth', value: '+23%', icon: TrendingUp, color: 'from-purple-500 to-pink-500' },
+export default function DashboardOverview() {
+  const [vibeTags, setVibeTags] = useState<string[]>([
+    '#SoftLife',
+    '#ExecutiveGrooming',
+    '#QuietWorkspace',
+  ])
+
+  const [galleryPhotos, setGalleryPhotos] = useState<string[]>([
+    'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=500&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=500&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400&h=500&fit=crop&q=80',
+  ])
+
+  const availableVibeTags = [
+    '#SoftLife',
+    '#ExecutiveGrooming',
+    '#QuietWorkspace',
+    '#UninterruptedPower',
+    '#HighEnergy',
+    '#ChopLife',
+    '#Minimalist',
   ]
 
-  const recentReviews = [
-    { name: 'John Doe', rating: 5, comment: 'Excellent service! Highly recommended.', date: '2 days ago' },
-    { name: 'Jane Smith', rating: 4, comment: 'Good experience overall.', date: '5 days ago' },
-  ]
+  const verificationStatus = 'pending' // 'verified' | 'pending' | 'rejected'
+
+  const toggleVibeTag = (tag: string) => {
+    setVibeTags(prev =>
+      prev.includes(tag)
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    )
+  }
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files.length > 0) {
+      const file = files[0]
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        if (reader.result) {
+          setGalleryPhotos(prev => [...prev, reader.result as string])
+        }
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    const files = e.dataTransfer.files
+    if (files && files.length > 0) {
+      const file = files[0]
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          if (reader.result) {
+            setGalleryPhotos(prev => [...prev, reader.result as string])
+          }
+        }
+        reader.readAsDataURL(file)
+      }
+    }
+  }
+
+  const removePhoto = (index: number) => {
+    setGalleryPhotos(prev => prev.filter((_, i) => i !== index))
+  }
 
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <h1 className="text-4xl font-bold text-white mb-2">
-            Welcome back, <span className="text-gradient">Business Owner</span>
-          </h1>
-          <p className="text-slate-400 text-lg">Here's how your business is performing this week</p>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="glass-strong rounded-2xl p-6 hover:scale-105 transition-transform"
-            >
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-4`}>
-                <stat.icon className="w-6 h-6 text-white" />
+    <div className="min-h-screen bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        {/* Trust Card */}
+        <div className="mb-12 md:mb-16">
+          <div className="border border-slate-200 rounded-lg p-6 md:p-8 bg-white">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <h2 className="text-xl md:text-2xl font-serif font-normal text-slate-900 mb-2">
+                  Verification Status
+                </h2>
+                <div className="flex items-center space-x-3 mb-4">
+                  {verificationStatus === 'verified' ? (
+                    <>
+                      <CheckCircle className="w-6 h-6 text-green-500" />
+                      <span className="text-base md:text-lg font-semibold text-green-600">Verified</span>
+                    </>
+                  ) : verificationStatus === 'pending' ? (
+                    <>
+                      <Clock className="w-6 h-6 text-[#FF6700]" />
+                      <span className="text-base md:text-lg font-semibold text-[#FF6700]">Verification Pending</span>
+                    </>
+                  ) : (
+                    <>
+                      <XCircle className="w-6 h-6 text-red-500" />
+                      <span className="text-base md:text-lg font-semibold text-red-600">Verification Rejected</span>
+                    </>
+                  )}
+                </div>
+                <p className="text-slate-600 text-sm max-w-2xl">
+                  {verificationStatus === 'verified'
+                    ? 'Your business profile has been verified. You receive priority placement in Top Picks and 5x more visibility.'
+                    : verificationStatus === 'pending'
+                    ? 'Your verification request is under review. We typically process verifications within 24-48 hours.'
+                    : 'Your verification was rejected. Please review the requirements and resubmit your documents.'}
+                </p>
               </div>
-              <h3 className="text-3xl font-bold text-white mb-1">{stat.value}</h3>
-              <p className="text-slate-400 text-sm">{stat.label}</p>
-            </motion.div>
-          ))}
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Recent Reviews */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="glass-strong rounded-2xl p-8"
-            >
-              <h2 className="text-2xl font-bold text-white mb-6">Recent Reviews</h2>
-              <div className="space-y-4">
-                {recentReviews.map((review, index) => (
-                  <div key={index} className="glass rounded-xl p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-white font-semibold">{review.name}</h3>
-                      <div className="flex items-center space-x-1">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="text-slate-400 text-sm mb-2">{review.comment}</p>
-                    <p className="text-slate-500 text-xs">{review.date}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Quick Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="glass-strong rounded-2xl p-8"
-            >
-              <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button className="glass rounded-xl p-4 hover:glass-strong transition-all text-left group">
-                  <Edit className="w-6 h-6 text-primary-400 mb-2" />
-                  <h3 className="text-white font-semibold mb-1 group-hover:text-gradient transition-all">
-                    Edit Profile
-                  </h3>
-                  <p className="text-slate-400 text-sm">Update business information</p>
-                </button>
-                
-                <button className="glass rounded-xl p-4 hover:glass-strong transition-all text-left group">
-                  <FileText className="w-6 h-6 text-green-400 mb-2" />
-                  <h3 className="text-white font-semibold mb-1 group-hover:text-gradient transition-all">
-                    Upload Documents
-                  </h3>
-                  <p className="text-slate-400 text-sm">Add verification documents</p>
-                </button>
-              </div>
-            </motion.div>
+        {/* Performance Section */}
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl font-serif font-normal text-slate-900 mb-8 md:mb-12">
+            Performance
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div>
+              <p className="text-sm text-slate-500 uppercase tracking-wider mb-2">
+                Total Profile Saves
+              </p>
+              <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900">
+                1,247
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-500 uppercase tracking-wider mb-2">
+                Unique Visitors
+              </p>
+              <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900">
+                3,891
+              </p>
+            </div>
           </div>
+        </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Verification Status */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="glass-strong rounded-2xl p-6"
-            >
-              <h3 className="text-xl font-bold text-white mb-4">Verification Status</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-400" />
-                  <span className="text-white">Business Verified</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-400" />
-                  <span className="text-white">CAC Verified</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-400" />
-                  <span className="text-white">ID Verified</span>
-                </div>
-              </div>
-            </motion.div>
+        {/* Vibe Management Section */}
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl font-serif font-normal text-slate-900 mb-6 md:mb-8">
+            Vibe Management
+          </h2>
+          <p className="text-slate-600 mb-6 text-sm">
+            Select lifestyle tags that represent your business atmosphere. These help clients find you.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {availableVibeTags.map((tag) => {
+              const isSelected = vibeTags.includes(tag)
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => toggleVibeTag(tag)}
+                  className={`px-4 md:px-6 py-2.5 md:py-3 rounded-full text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2 touch-manipulation ${
+                    isSelected
+                      ? 'bg-[#FF6700] text-white'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                  style={{ minHeight: '44px' }}
+                  aria-pressed={isSelected}
+                >
+                  {tag}
+                </button>
+              )
+            })}
+          </div>
+        </div>
 
-            {/* Settings */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="glass-strong rounded-2xl p-6"
-            >
-              <button className="w-full flex items-center justify-between text-white hover:text-primary-400 transition-colors group">
-                <div className="flex items-center space-x-3">
-                  <Settings className="w-5 h-5" />
-                  <span className="font-semibold">Account Settings</span>
+        {/* Gallery Section */}
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl font-serif font-normal text-slate-900 mb-6 md:mb-8">
+            Gallery
+          </h2>
+          <p className="text-slate-600 mb-6 text-sm">
+            Upload photos to showcase your business. Drag and drop images or click to browse.
+          </p>
+
+          {/* Existing Photos Grid */}
+          {galleryPhotos.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+              {galleryPhotos.map((photo, index) => (
+                <div key={index} className="relative group aspect-[4/5] rounded-lg overflow-hidden">
+                  <Image
+                    src={photo}
+                    alt={`Gallery photo ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                  <button
+                    onClick={() => removePhoto(index)}
+                    className="absolute top-2 right-2 p-2 md:p-2.5 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity hover:bg-black/70 touch-manipulation"
+                    aria-label={`Remove photo ${index + 1}`}
+                    style={{ minWidth: '44px', minHeight: '44px' }}
+                  >
+                    <X className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                  </button>
                 </div>
-              </button>
-            </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* Upload Area */}
+          <div
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            className="border-2 border-dashed border-slate-300 rounded-lg p-12 text-center hover:border-[#FF6700] transition-colors"
+          >
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileUpload}
+              className="hidden"
+              id="gallery-upload"
+            />
+            <label htmlFor="gallery-upload" className="cursor-pointer">
+              <Upload className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+              <p className="text-slate-700 font-medium mb-2">
+                Drag and drop images here, or{' '}
+                <span className="text-[#FF6700] hover:underline">browse</span>
+              </p>
+              <p className="text-sm text-slate-500">
+                High-quality images recommended. Max file size: 5MB
+              </p>
+            </label>
           </div>
         </div>
       </div>
     </div>
   )
 }
-

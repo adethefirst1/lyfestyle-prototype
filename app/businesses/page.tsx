@@ -218,7 +218,7 @@ function BusinessListingContent() {
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-accent-purple text-white font-semibold hover:shadow-lg transition-all"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-blue to-primary-500 text-white font-semibold hover:shadow-lg transition-all"
                 >
                   Clear Filters
                 </button>
@@ -226,7 +226,7 @@ function BusinessListingContent() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {filteredBusinesses.map((business, index) => (
-                  <BusinessCard key={business.id} business={business} index={index} />
+                  <BusinessCard key={business.id} business={business} />
                 ))}
               </div>
             )}

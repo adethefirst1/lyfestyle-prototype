@@ -17,7 +17,8 @@
     "address": "15 Akin Adesola Street, Victoria Island, Lagos",
     "hours": "Mon-Sat: 8AM-6PM",
     "logo": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=150&h=150&fit=crop",
-    "banner": "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1200&h=400&fit=crop",
+    "banner": "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=750&fit=crop&q=80",
+    "vibeTag": "#ReliableHands",
     "services": ["Engine Repair", "Oil Change", "Brake Service", "AC Repair"],
     "recentlyVerified": true,
     "views": 1245
@@ -40,7 +41,8 @@
     "address": "23 Admiralty Way, Lekki Phase 1, Lagos",
     "hours": "Mon-Sun: 9AM-8PM",
     "logo": "https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=150&h=150&fit=crop",
-    "banner": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=400&fit=crop",
+    "banner": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&h=750&fit=crop&q=80",
+    "vibeTag": "#SharpCuts",
     "services": ["Hair Styling", "Manicure", "Pedicure", "Makeup", "Massage"],
     "recentlyVerified": true,
     "views": 2341
@@ -63,7 +65,8 @@
     "address": "45 Allen Avenue, Ikeja, Lagos",
     "hours": "Mon-Fri: 9AM-6PM",
     "logo": "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=150&h=150&fit=crop",
-    "banner": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&h=400&fit=crop",
+    "banner": "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=600&h=750&fit=crop&q=80",
+    "vibeTag": "#QuietVibe",
     "services": ["Computer Repair", "Data Recovery", "Network Setup", "Software Installation"],
     "recentlyVerified": true,
     "views": 876
@@ -155,7 +158,8 @@
     "address": "45 Aba Road, Port Harcourt",
     "hours": "Mon-Sat: 9AM-7PM",
     "logo": "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=150&h=150&fit=crop",
-    "banner": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1200&h=400&fit=crop",
+    "banner": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&h=750&fit=crop&q=80",
+    "vibeTag": "#SharpCuts",
     "services": ["Haircut", "Beard Trim", "Hot Shave", "Hair Color"],
     "recentlyVerified": true,
     "views": 987
@@ -201,7 +205,8 @@
     "address": "34 Borno Way, Yaba, Lagos",
     "hours": "Mon-Fri: 9AM-5PM",
     "logo": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=150&h=150&fit=crop",
-    "banner": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=400&fit=crop",
+    "banner": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=750&fit=crop&q=80",
+    "vibeTag": "#QuietVibe",
     "services": ["Web Development", "Mobile Apps", "Data Science", "UI/UX Design"],
     "recentlyVerified": true,
     "views": 3456

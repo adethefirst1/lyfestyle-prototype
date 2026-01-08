@@ -8,7 +8,7 @@ import FloatingCTA from '@/components/FloatingCTA'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Lyfestyle - Discover Trusted Businesses Near You',
+  title: 'Lyfestylz - Discover Trusted Businesses Near You',
   description: 'A Nigerian-based business discovery and verification platform. Find verified mechanics, salons, tech experts, caterers, and more.',
   keywords: 'business directory, Nigeria, verified businesses, local services',
   viewport: {
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="animated-bg min-h-screen">
+        <div className="min-h-screen bg-white">
           <Navbar />
           <main className="min-h-screen">
             {children}
