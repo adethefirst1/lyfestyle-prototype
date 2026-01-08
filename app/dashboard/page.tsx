@@ -27,7 +27,7 @@ export default function DashboardOverview() {
     '#Minimalist',
   ]
 
-  const verificationStatus = 'pending' // 'verified' | 'pending' | 'rejected'
+  const [verificationStatus] = useState<'verified' | 'pending' | 'rejected'>('pending')
 
   const toggleVibeTag = (tag: string) => {
     setVibeTags(prev =>
