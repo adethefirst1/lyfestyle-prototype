@@ -14,15 +14,53 @@
     scroll-behavior: smooth;
   }
 
+  /* Improve focus visibility for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-[#FF6700] ring-offset-2;
+  }
+
+  /* Better button and link focus states */
+  button:focus-visible,
+  a:focus-visible {
+    @apply outline-none ring-2 ring-[#FF6700] ring-offset-2 rounded;
+  }
+
   /* Reduce animations on low-end devices */
   @media (prefers-reduced-motion: reduce) {
-    * {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 
+  /* Ensure minimum touch target sizes for interactive elements */
+  button:not([type="submit"]):not([type="button"]),
+  a[role="button"],
+  button[type="submit"],
+  button[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Touch-friendly inputs */
+  input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  textarea,
+  select {
+    min-height: 44px;
+  }
+
+  /* Improve text rendering */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 }
 
 @layer utilities {
@@ -45,6 +83,14 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* Custom scroll indicator for horizontal scrolls */
+  .scrollable-hint::after {
+    content: '← Swipe to see more';
+    @apply text-xs text-slate-500 text-center block mt-2;
   }
 }
 

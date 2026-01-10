@@ -52,15 +52,15 @@ export default function VerificationPage() {
   }
 
   return (
-    <div className="min-h-screen pt-20 pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <div className="min-h-screen pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl p-6 sm:p-8 md:p-12 shadow-sm">
           {/* Header */}
-          <div className="mb-6 md:mb-8">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-normal text-slate-900 mb-2">
-              Build trust with verification
+          <div className="mb-8 md:mb-10">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-3">
+              Business Verification
             </h1>
-            <p className="text-slate-600">Verified profiles get priority placement in Top Picks</p>
+            <p className="text-slate-600 text-lg">Verified businesses receive priority placement in search results and build greater trust with customers</p>
           </div>
 
           <div className="space-y-6">
@@ -74,7 +74,7 @@ export default function VerificationPage() {
                 value={cacNumber}
                 onChange={(e) => setCacNumber(e.target.value)}
                 placeholder="Enter your CAC registration number"
-                className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition-all"
               />
             </div>
 
@@ -86,7 +86,7 @@ export default function VerificationPage() {
                 id="idDocumentType"
                 value={idDocumentType}
                 onChange={(e) => setIdDocumentType(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-slate-900 mb-3 focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-900 mb-3 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition-all"
               >
                 <option value="">Select document type</option>
                 {idDocumentTypes.map((type) => (

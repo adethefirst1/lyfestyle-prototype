@@ -56,28 +56,20 @@ export default function AddBusinessPage() {
 
   const steps = [
     { number: 1, title: 'The Basics', subtitle: 'Identity', key: 'basics' },
-    { number: 2, title: 'The Vibe', subtitle: 'Lifestyle', key: 'vibe' },
+    { number: 2, title: 'Brand Identity', subtitle: 'Lifestyle', key: 'vibe' },
     { number: 3, title: 'Verification', subtitle: 'Trust', key: 'verification' },
     { number: 4, title: 'Complete', subtitle: 'Success', key: 'complete' },
   ]
 
   const handleNext = () => {
-    console.log('Form Data:', formData)
-    console.log('Current Step:', currentStep)
-    
     // Validate current step before proceeding
     const isValid = validateStep(currentStep)
-    console.log('Validation Result:', isValid)
-    console.log('Errors:', errors)
     
     if (isValid) {
       if (currentStep < 4) {
-        console.log('Moving to step:', currentStep + 1)
         setCurrentStep(currentStep + 1)
         setErrors({})
       }
-    } else {
-      console.log('Validation failed - errors:', errors)
     }
   }
 
@@ -103,45 +95,33 @@ export default function AddBusinessPage() {
   }
 
   const validateStep = (step: number): boolean => {
-    console.log('Validating step:', step)
-    console.log('Form data being validated:', {
-      businessName: formData.businessName,
-      category: formData.category,
-      whatsappNumber: formData.whatsappNumber,
-    })
-    
     const newErrors: Record<string, string> = {}
 
     if (step === 1) {
       // Business Name validation
       if (!formData.businessName || !formData.businessName.trim()) {
         newErrors.businessName = 'Business name is required'
-        console.log('Error: Business name is missing')
       }
       
       // Category validation
       if (!formData.category || formData.category === '') {
         newErrors.category = 'Please select a category'
-        console.log('Error: Category is missing')
       }
       
       // WhatsApp Number validation
       if (!formData.whatsappNumber || !formData.whatsappNumber.trim()) {
         newErrors.whatsappNumber = 'WhatsApp number is required'
-        console.log('Error: WhatsApp number is missing')
       } else {
         // More lenient validation - accepts various Nigerian phone formats
         const cleaned = formData.whatsappNumber.replace(/\s|-|\(|\)/g, '')
         const phoneRegex = /^(\+?234|0)?[789]\d{9}$/
         if (!phoneRegex.test(cleaned)) {
           newErrors.whatsappNumber = 'Please enter a valid Nigerian phone number (e.g., +234 800 000 0000 or 0800 000 0000)'
-          console.log('Error: WhatsApp number format is invalid')
         }
       }
     }
 
     if (Object.keys(newErrors).length > 0) {
-      console.log('Validation errors found:', newErrors)
       setErrors(newErrors)
       // Scroll to first error
       const firstErrorField = Object.keys(newErrors)[0]
@@ -153,7 +133,6 @@ export default function AddBusinessPage() {
       return false
     }
 
-    console.log('Validation passed')
     setErrors({})
     return true
   }
@@ -181,7 +160,7 @@ export default function AddBusinessPage() {
     setIsSubmitting(true)
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500))
-    console.log('Form submitted:', formData)
+    // Form submitted - in production, send to API endpoint
     setIsSubmitting(false)
     // Navigate to success step
     setCurrentStep(4)
@@ -192,7 +171,7 @@ export default function AddBusinessPage() {
   }
 
   return (
-    <div className="min-h-screen pt-20 pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <div className="min-h-screen pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Vertical Progress Indicator - Left Side (Desktop) */}
@@ -318,16 +297,16 @@ export default function AddBusinessPage() {
               {currentStep === 1 && (
                 <div className="space-y-8" role="tabpanel" aria-labelledby="step-1-title">
                   {/* Founding Member Banner */}
-                  <div className="bg-gradient-to-r from-[#FF6700] to-orange-600 text-white rounded-lg p-4 sm:p-6 text-center" role="banner">
-                    <p className="font-bold text-base sm:text-lg">Founding Member: Free for a Limited Time</p>
-                    <p className="text-sm opacity-90 mt-1">Join now and list your business at no cost</p>
+                  <div className="bg-gradient-to-r from-brand-orange to-[#e55a00] text-white rounded-lg p-4 sm:p-6 text-center" role="banner">
+                    <p className="font-medium text-base sm:text-lg">Founding Member Benefits</p>
+                    <p className="text-sm opacity-90 mt-1">Create your business listing at no cost during our launch period</p>
                   </div>
 
                   <div>
-                    <h2 id="step-1-title" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-normal text-slate-900 mb-2">
-                      Tell us about your business
+                    <h2 id="step-1-title" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-slate-900 mb-3">
+                      Business Information
                     </h2>
-                    <p className="text-slate-600">Let's start with the essentials</p>
+                    <p className="text-slate-600 text-lg">Provide the essential details about your business</p>
                   </div>
 
                   <div className="space-y-6">
@@ -434,16 +413,16 @@ export default function AddBusinessPage() {
               {currentStep === 2 && (
                 <div className="space-y-8" role="tabpanel" aria-labelledby="step-2-title">
                   <div>
-                    <h2 id="step-2-title" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-normal text-slate-900 mb-2">
-                      What's your vibe?
+                    <h2 id="step-2-title" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-slate-900 mb-3">
+                      Brand Identity
                     </h2>
-                    <p className="text-slate-600">Help clients find you by your atmosphere and style</p>
+                    <p className="text-slate-600 text-lg">Define your business atmosphere and help customers find you based on your brand style</p>
                   </div>
 
                   <div>
                     <fieldset>
-                      <legend className="block text-sm font-semibold text-slate-900 mb-4">
-                        Select Vibe Tags (choose all that apply)
+                      <legend className="block text-sm font-medium text-slate-900 mb-4">
+                        Lifestyle Tags <span className="text-slate-400 font-normal">(Select all that apply)</span>
                       </legend>
                       <div className="flex flex-wrap gap-3" role="group" aria-label="Vibe tags selection">
                         {vibeOptions.map((tag) => (
@@ -451,10 +430,10 @@ export default function AddBusinessPage() {
                             key={tag}
                             type="button"
                             onClick={() => toggleVibeTag(tag)}
-                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2 ${
+                            className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:ring-offset-2 ${
                               formData.vibeTags.includes(tag)
-                                ? 'bg-[#FF6700] text-white'
-                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                ? 'bg-brand-orange text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
                             }`}
                             aria-pressed={formData.vibeTags.includes(tag)}
                             aria-label={`Select ${tag} vibe tag`}
@@ -468,8 +447,8 @@ export default function AddBusinessPage() {
 
                   <div>
                     <fieldset>
-                      <legend className="block text-sm font-semibold text-slate-900 mb-4">
-                        Atmosphere Photos
+                      <legend className="block text-sm font-medium text-slate-900 mb-4">
+                        Business Photos
                       </legend>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         {/* Interior Photo */}
@@ -587,11 +566,11 @@ export default function AddBusinessPage() {
                       <div className="w-2 h-2 bg-white rounded-full animate-pulse" aria-hidden="true"></div>
                       <span className="font-bold">Verification Pending</span>
                     </div>
-                    <h2 id="step-4-title" className="text-2xl sm:text-3xl md:text-4xl font-serif font-normal text-slate-900 mb-4">
-                      Welcome to Lyfestylz!
+                    <h2 id="step-4-title" className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-4">
+                      Profile Submission Complete
                     </h2>
                     <p className="text-slate-600 text-base sm:text-lg">
-                      Your profile is being reviewed. We'll notify you once verification is complete.
+                      Your business profile is under review. We'll notify you once verification is complete, typically within 24-48 hours.
                     </p>
                   </div>
 
@@ -629,7 +608,7 @@ export default function AddBusinessPage() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       href="/dashboard"
-                      className="inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-[#FF6700] text-white font-bold rounded-lg hover:bg-[#e55a00] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2"
+                      className="inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-brand-orange text-white font-medium rounded-lg hover:bg-[#e55a00] transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:ring-offset-2"
                     >
                       <span>Go to Dashboard</span>
                       <ExternalLink className="w-5 h-5" aria-hidden="true" />
@@ -678,7 +657,7 @@ export default function AddBusinessPage() {
                         type="button"
                         onClick={handleNext}
                         disabled={isSubmitting}
-                        className="flex items-center space-x-2 px-6 sm:px-8 py-3 bg-[#FF6700] text-white font-bold rounded-lg hover:bg-[#e55a00] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto justify-center"
+                        className="flex items-center space-x-2 px-6 sm:px-8 py-3 bg-brand-orange text-white font-medium rounded-lg hover:bg-[#e55a00] transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto justify-center"
                         aria-busy={isSubmitting}
                       >
                         {isSubmitting ? (

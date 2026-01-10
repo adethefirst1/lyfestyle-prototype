@@ -18,7 +18,7 @@ export default function AdminDashboardPage() {
   ]
 
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pb-20 px-4 sm:px-6 lg:px-8 bg-white py-12">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -27,10 +27,10 @@ export default function AdminDashboardPage() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">
             Admin <span className="text-gradient">Dashboard</span>
           </h1>
-          <p className="text-slate-400 text-lg">Manage business verifications and platform oversight</p>
+          <p className="text-slate-600 text-lg">Manage business verifications and platform oversight</p>
         </motion.div>
 
         {/* Stats Grid */}
@@ -41,13 +41,13 @@ export default function AdminDashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="glass-strong rounded-2xl p-6"
+              className="bg-slate-50 rounded-2xl p-6 border border-slate-200"
             >
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-4`}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-3xl font-bold text-white mb-1">{stat.value}</h3>
-              <p className="text-slate-400 text-sm">{stat.label}</p>
+              <h3 className="text-3xl font-bold text-slate-900 mb-1">{stat.value}</h3>
+              <p className="text-slate-600 text-sm">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -57,9 +57,9 @@ export default function AdminDashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="glass-strong rounded-2xl p-8"
+          className="bg-slate-50 rounded-2xl p-8 border border-slate-200"
         >
-          <h2 className="text-2xl font-bold text-white mb-6">Pending Verifications</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Pending Verifications</h2>
           
           <div className="space-y-4">
             {pendingBusinesses.map((business, index) => (
@@ -68,20 +68,20 @@ export default function AdminDashboardPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="glass rounded-xl p-6"
+                className="bg-white rounded-xl p-6 border border-slate-200"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-white font-semibold text-lg mb-1">{business.name}</h3>
+                    <h3 className="text-slate-900 font-semibold text-lg mb-1">{business.name}</h3>
                     <div className="flex items-center space-x-4 text-sm">
-                      <span className="text-primary-400">{business.category}</span>
-                      <span className="text-slate-500">•</span>
-                      <span className="text-slate-400">Submitted {business.submittedDate}</span>
+                      <span className="text-primary-500">{business.category}</span>
+                      <span className="text-slate-400">•</span>
+                      <span className="text-slate-600">Submitted {business.submittedDate}</span>
                     </div>
                   </div>
                   
-                  <div className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30">
-                    <span className="text-amber-400 text-sm font-semibold">Pending</span>
+                  <div className="px-3 py-1 rounded-full bg-amber-50 border border-amber-200">
+                    <span className="text-amber-600 text-sm font-semibold">Pending</span>
                   </div>
                 </div>
 
@@ -96,7 +96,7 @@ export default function AdminDashboardPage() {
                     <span>Reject</span>
                   </button>
                   
-                  <button className="px-4 py-2.5 rounded-lg glass hover:glass-strong text-white font-semibold transition-all">
+                  <button className="px-4 py-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold transition-all">
                     View Details
                   </button>
                 </div>

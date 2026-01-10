@@ -15,19 +15,16 @@ export default function SignInPage() {
   const [error, setError] = useState('')
 
   // Mock auth function for demo environment
+  // Note: In production, implement proper server-side authentication with secure sessions
   const signIn = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
-    console.log('Attempting sign in for:', email)
-    
     // Demo mode: Accept any email and password
-    // In production, this would call your auth API
+    // In production, this would call your auth API with proper encryption
     return new Promise((resolve) => {
       setTimeout(() => {
         // Mock validation - accept any email/password for demo
         if (email && password) {
-          console.log('Auth response: Success - Demo mode active')
           resolve({ success: true })
         } else {
-          console.log('Auth response: Failed - Missing credentials')
           resolve({ success: false, error: 'Invalid email or password' })
         }
       }, 1000)
@@ -38,64 +35,68 @@ export default function SignInPage() {
     e.preventDefault()
     e.stopPropagation()
     
-    console.log('Form submitted - handleSubmit called', { email, password, hasEmail: !!email, hasPassword: !!password })
-    
     // Validate fields
     if (!email || !password) {
-      console.log('Validation failed - missing fields')
       setError('Please enter both email and password')
       return
     }
     
-    console.log('Validation passed, starting sign in process')
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address')
+      return
+    }
+    
     setError('')
     setIsLoading(true)
 
     try {
       // Call sign-in function
+      // Note: In production, password should NEVER be logged or stored in localStorage
       const response = await signIn(email, password)
-      console.log('Auth response:', response)
 
       if (response.success) {
-        // Store auth state (in production, use proper auth system)
+        // Store auth state (in production, use proper auth system with httpOnly cookies)
+        // WARNING: localStorage is vulnerable to XSS attacks - use secure sessions in production
         if (typeof window !== 'undefined') {
           localStorage.setItem('isAuthenticated', 'true')
+          // Only store non-sensitive data in localStorage
           localStorage.setItem('userEmail', email)
           localStorage.setItem('userRole', 'business') // Demo: set as business user
-          console.log('Auth state stored in localStorage')
+          // Demo: Set a business ID (in production, this would come from the API)
+          localStorage.setItem('businessId', '1')
         }
         
-        console.log('Auth successful, redirecting to dashboard')
         // Redirect to dashboard
         router.push('/dashboard')
         // Fallback redirect
         setTimeout(() => {
-          if (window.location.pathname !== '/dashboard') {
+          if (typeof window !== 'undefined' && window.location.pathname !== '/dashboard') {
             window.location.href = '/dashboard'
           }
         }, 100)
       } else {
-        console.log('Auth failed:', response.error)
         setError(response.error || 'Invalid email or password')
         setIsLoading(false)
       }
     } catch (err) {
-      console.error('Sign in error:', err)
+      // Log errors securely (in production, send to error tracking service)
       setError('An error occurred. Please try again.')
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-20 relative z-10">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 sm:px-6 lg:px-8 pb-20 relative z-10">
       <div className="max-w-md w-full relative z-10">
         {/* Logo */}
         <div className="text-center mb-12">
           <Link href="/" className="inline-block mb-4">
             <Logo showText={true} textSize="lg" />
           </Link>
-          <h1 className="text-2xl md:text-3xl font-serif font-normal text-slate-900 mb-2">
-            Welcome back
+          <h1 className="text-2xl md:text-3xl font-serif font-bold text-slate-900 mb-2">
+            Welcome Back
           </h1>
           <p className="text-slate-600">Sign in to access your business dashboard</p>
         </div>
@@ -186,9 +187,6 @@ export default function SignInPage() {
             {/* Submit Button */}
             <button
               type="submit"
-              onClick={() => {
-                console.log('Button clicked directly', { email, password, isLoading })
-              }}
               disabled={isLoading}
               className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-[#FF6700] text-white font-bold rounded-lg hover:bg-[#e55a00] active:bg-[#d14f00] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20"
             >
@@ -206,16 +204,6 @@ export default function SignInPage() {
             </button>
           </form>
 
-          {/* Dashboard Link */}
-          <div className="mt-4 text-center">
-            <Link
-              href="/dashboard"
-              className="text-xs text-slate-500 hover:text-[#FF6700] transition-colors"
-            >
-              dashboard
-            </Link>
-          </div>
-
           {/* Sign Up Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-slate-600">
@@ -228,13 +216,6 @@ export default function SignInPage() {
               </Link>
             </p>
           </div>
-        </div>
-
-        {/* Demo Note */}
-        <div className="mt-6 text-center">
-          <p className="text-xs text-slate-500">
-            Demo: Enter any email and password to sign in
-          </p>
         </div>
       </div>
     </div>

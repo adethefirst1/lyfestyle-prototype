@@ -15,7 +15,7 @@ export default function CompletePage() {
   const verificationSkipped = searchParams.get('verificationSkipped') === 'true'
 
   return (
-    <div className="min-h-screen pt-20 pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <div className="min-h-screen pb-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl p-6 sm:p-8 md:p-12 shadow-sm text-center">
           {/* Success Badge */}
@@ -32,13 +32,13 @@ export default function CompletePage() {
                 {verificationSkipped ? 'Profile Created' : 'Verification Pending'}
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-serif font-normal text-slate-900 mb-4">
-              Welcome to Lyfestylz!
+            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-4">
+              Profile Created Successfully
             </h1>
             <p className="text-slate-600 text-lg">
               {verificationSkipped
-                ? "Your profile has been created. You can add verification later to get priority placement."
-                : "Your profile is being reviewed. We'll notify you once verification is complete."}
+                ? "Your business profile has been created. Complete verification later to receive priority placement in search results."
+                : "Your business profile is under review. We'll notify you once verification is complete, typically within 24-48 hours."}
             </p>
           </div>
 
@@ -70,17 +70,17 @@ export default function CompletePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/dashboard"
-              className="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-[#FF6700] text-white font-bold rounded-lg hover:bg-[#e55a00] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2"
+              className="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-brand-orange text-white font-medium rounded-lg hover:bg-[#e55a00] transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:ring-offset-2"
             >
               <span>Go to Dashboard</span>
               <ExternalLink className="w-5 h-5" aria-hidden="true" />
             </Link>
             <button
               type="button"
-              className="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-white border-2 border-slate-200 text-slate-900 font-semibold rounded-lg hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2"
+              className="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-white border border-slate-200 text-slate-900 font-medium rounded-lg hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:ring-offset-2"
             >
               <Share2 className="w-5 h-5" aria-hidden="true" />
-              <span>Share Profile to WhatsApp Status</span>
+              <span>Share Profile</span>
             </button>
           </div>
         </div>

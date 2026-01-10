@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import { CheckCircle, Clock, X, Upload, XCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { CheckCircle, Clock, X, Upload, XCircle, AlertTriangle, ExternalLink, Eye } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function DashboardOverview() {
   const [vibeTags, setVibeTags] = useState<string[]>([
@@ -27,7 +28,39 @@ export default function DashboardOverview() {
     '#Minimalist',
   ]
 
-  const [verificationStatus] = useState<'verified' | 'pending' | 'rejected'>('pending')
+  const [verificationStatus, setVerificationStatus] = useState<'verified' | 'pending' | 'rejected' | 're-verification_required'>('pending')
+  const [showNameChangeBanner, setShowNameChangeBanner] = useState(false)
+  const [businessId, setBusinessId] = useState<string>('1')
+
+  // Load verification status and business ID from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('verificationStatus')
+      const notificationFlag = localStorage.getItem('nameChangeNotification')
+      const bannerDismissed = localStorage.getItem('nameChangeBannerDismissed')
+      const storedBusinessId = localStorage.getItem('businessId')
+      
+      if (storedBusinessId) {
+        setBusinessId(storedBusinessId)
+      }
+      
+      if (stored && ['verified', 'pending', 'rejected', 're-verification_required'].includes(stored)) {
+        setVerificationStatus(stored as typeof verificationStatus)
+        
+        // Show banner if status is re-verification_required and not dismissed
+        if (stored === 're-verification_required' && bannerDismissed !== 'true') {
+          setShowNameChangeBanner(true)
+        }
+      }
+      
+      // Also show banner if notification flag is set (just saved)
+      if (notificationFlag === 'true') {
+        setShowNameChangeBanner(true)
+        // Clear the flag after showing
+        localStorage.removeItem('nameChangeNotification')
+      }
+    }
+  }, [])
 
   const toggleVibeTag = (tag: string) => {
     setVibeTags(prev =>
@@ -79,10 +112,34 @@ export default function DashboardOverview() {
   return (
     <div className="min-h-screen bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        {/* Name Change Banner */}
+        {showNameChangeBanner && (
+          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-amber-900">
+                Your name change is under review. Your public profile will show as "Pending" until verified.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setShowNameChangeBanner(false)
+                // Remember that user dismissed the banner
+                if (typeof window !== 'undefined') {
+                  localStorage.setItem('nameChangeBannerDismissed', 'true')
+                }
+              }}
+              className="p-1 hover:bg-amber-100 rounded transition-colors"
+            >
+              <X className="w-4 h-4 text-amber-600" />
+            </button>
+          </div>
+        )}
+
         {/* Trust Card */}
         <div className="mb-12 md:mb-16">
           <div className="border border-slate-200 rounded-lg p-6 md:p-8 bg-white">
-            <div className="flex items-start justify-between">
+            <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <h2 className="text-xl md:text-2xl font-serif font-normal text-slate-900 mb-2">
                   Verification Status
@@ -93,10 +150,12 @@ export default function DashboardOverview() {
                       <CheckCircle className="w-6 h-6 text-green-500" />
                       <span className="text-base md:text-lg font-semibold text-green-600">Verified</span>
                     </>
-                  ) : verificationStatus === 'pending' ? (
+                  ) : verificationStatus === 'pending' || verificationStatus === 're-verification_required' ? (
                     <>
                       <Clock className="w-6 h-6 text-[#FF6700]" />
-                      <span className="text-base md:text-lg font-semibold text-[#FF6700]">Verification Pending</span>
+                      <span className="text-base md:text-lg font-semibold text-[#FF6700]">
+                        {verificationStatus === 're-verification_required' ? 'Re-verification Required' : 'Verification Pending'}
+                      </span>
                     </>
                   ) : (
                     <>
@@ -105,13 +164,26 @@ export default function DashboardOverview() {
                     </>
                   )}
                 </div>
-                <p className="text-slate-600 text-sm max-w-2xl">
+                <p className="text-slate-600 text-sm max-w-2xl mb-4">
                   {verificationStatus === 'verified'
                     ? 'Your business profile has been verified. You receive priority placement in Top Picks and 5x more visibility.'
+                    : verificationStatus === 're-verification_required'
+                    ? 'Your business name change requires re-verification. Please submit updated CAC and ID documents for review. This typically takes 24-48 hours.'
                     : verificationStatus === 'pending'
                     ? 'Your verification request is under review. We typically process verifications within 24-48 hours.'
                     : 'Your verification was rejected. Please review the requirements and resubmit your documents.'}
                 </p>
+                {/* View Public Profile Link */}
+                <Link
+                  href={`/business/${businessId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium text-sm transition-colors"
+                >
+                  <Eye className="w-4 h-4" />
+                  <span>View Public Profile</span>
+                  <ExternalLink className="w-3 h-3" />
+                </Link>
               </div>
             </div>
           </div>

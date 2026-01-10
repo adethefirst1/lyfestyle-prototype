@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import FloatingCTA from '@/components/FloatingCTA'
+import ConditionalFooter from '@/components/ConditionalFooter'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,15 +26,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
         <div className="min-h-screen bg-white">
           <Navbar />
-          <main className="min-h-screen">
+          <main className="min-h-screen pt-20">
             {children}
           </main>
-          <Footer />
-          <FloatingCTA />
+          <ConditionalFooter />
         </div>
       </body>
     </html>

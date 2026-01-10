@@ -59,16 +59,21 @@ function ProCard({ pro }: ProCardProps) {
     : proNames[pro.category] || { name: 'Professional', title: 'Expert' }
 
   return (
-    <Link href={`/business/${pro.id}`} className="block group flex-shrink-0 w-48 md:w-56">
+    <Link 
+      href={`/business/${pro.id}`} 
+      className="block group flex-shrink-0 w-48 md:w-56 focus:outline-none focus:ring-2 focus:ring-[#FF6700] focus:ring-offset-2 rounded-2xl"
+      aria-label={`View ${proInfo.name} - ${pro.businessName} profile`}
+    >
       <div className="w-full">
         {/* Compact Portrait Image (4/5 aspect ratio) */}
-        <div className="relative w-full aspect-[4/5] overflow-hidden mb-3">
+        <div className="relative w-full aspect-[4/5] overflow-hidden mb-3 rounded-2xl">
           <Image
             src={imageUrl}
-            alt={proInfo.name}
+            alt={`${proInfo.name} - ${proInfo.title} at ${pro.businessName}`}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700"
-            unoptimized
+            className="object-cover group-hover:scale-105 group-focus:scale-105 transition-transform duration-700"
+            quality={85}
+            sizes="(max-width: 640px) 192px, (max-width: 1024px) 224px, 224px"
           />
 
           {/* Verified Badge Overlay - Top Right */}

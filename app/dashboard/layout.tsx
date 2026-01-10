@@ -10,7 +10,9 @@ import {
   BarChart3,
   FileText,
   Bell,
-  LogOut
+  LogOut,
+  Eye,
+  ExternalLink
 } from 'lucide-react'
 import Logo from '@/components/Logo'
 
@@ -29,14 +31,21 @@ export default function DashboardLayout({
 }) {
   const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [businessId, setBusinessId] = useState<string>('1')
   const pathname = usePathname()
 
-  // Check authentication on mount
+  // Check authentication on mount and get business ID
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const isAuthenticated = localStorage.getItem('isAuthenticated')
+      const storedBusinessId = localStorage.getItem('businessId')
+      
       if (!isAuthenticated) {
         router.push('/account')
+      }
+      
+      if (storedBusinessId) {
+        setBusinessId(storedBusinessId)
       }
     }
   }, [router])
@@ -83,6 +92,16 @@ export default function DashboardLayout({
 
           {/* Bottom Actions */}
           <div className="px-4 py-6 border-t border-slate-200 space-y-2">
+            <Link
+              href={`/business/${businessId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 w-full text-left transition-colors"
+            >
+              <Eye className="w-5 h-5 text-slate-400" />
+              <span>View Public Profile</span>
+              <ExternalLink className="w-4 h-4 text-slate-400 ml-auto" />
+            </Link>
             <button className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 w-full text-left transition-colors">
               <Bell className="w-5 h-5 text-slate-400" />
               <span>Notifications</span>
@@ -93,12 +112,6 @@ export default function DashboardLayout({
             >
               <LogOut className="w-5 h-5 text-slate-400" />
               <span>Sign Out</span>
-            </button>
-            <button 
-              onClick={handleSignOut}
-              className="text-xs text-slate-500 hover:text-[#FF6700] transition-colors underline w-full text-left px-4 py-2"
-            >
-              out
             </button>
           </div>
         </div>
@@ -155,6 +168,17 @@ export default function DashboardLayout({
           </nav>
 
           <div className="px-4 py-6 border-t border-slate-200 space-y-2">
+            <Link
+              href={`/business/${businessId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setSidebarOpen(false)}
+              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 w-full text-left transition-colors"
+            >
+              <Eye className="w-5 h-5 text-slate-400" />
+              <span>View Public Profile</span>
+              <ExternalLink className="w-4 h-4 text-slate-400 ml-auto" />
+            </Link>
             <button className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 w-full text-left transition-colors">
               <Bell className="w-5 h-5 text-slate-400" />
               <span>Notifications</span>
@@ -166,12 +190,6 @@ export default function DashboardLayout({
               <LogOut className="w-5 h-5 text-slate-400" />
               <span>Sign Out</span>
             </button>
-            <button 
-              onClick={handleSignOut}
-              className="text-xs text-slate-500 hover:text-[#FF6700] transition-colors underline w-full text-left px-4 py-2"
-            >
-              out
-            </button>
           </div>
         </div>
       </aside>
@@ -179,7 +197,7 @@ export default function DashboardLayout({
       {/* Main Content */}
       <div className="lg:pl-64">
         {/* Mobile Header */}
-        <header className="lg:hidden sticky top-0 z-30 bg-white border-b border-slate-200">
+        <header className="lg:hidden sticky top-20 z-30 bg-white border-b border-slate-200">
           <div className="flex items-center justify-between h-16 px-4">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -197,9 +215,9 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <main className="min-h-screen">
+        <div className="min-h-screen">
           {children}
-        </main>
+        </div>
       </div>
     </div>
   )

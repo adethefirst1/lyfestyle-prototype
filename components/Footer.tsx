@@ -120,7 +120,7 @@ export default function Footer() {
             </div>
             <div className="flex items-center space-x-3 text-slate-600 text-sm">
               <MapPin className="w-5 h-5 text-primary-600" />
-              <span>Lagos, Nigeria</span>
+              <span>Nigeria</span>
             </div>
           </div>
 
@@ -140,8 +140,7 @@ export default function Footer() {
             </div>
 
             <p className="text-slate-500 text-sm">
-              © {currentYear} Lyfestylz. All rights reserved. 
-              <span className="text-slate-600 ml-2">Powered by Odysia</span>
+              © {currentYear} Lyfestylz. All rights reserved.
             </p>
           </div>
         </div>
